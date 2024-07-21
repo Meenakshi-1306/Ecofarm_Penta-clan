@@ -7,10 +7,9 @@ batch_size = 32
 img_height = 180
 img_width = 180
 
-# Create a directory path
 data_dir = "C:/Users/MANICKA MEENAKSHI.S/Downloads/archive (2)/pest/train"
 
-# Load the images from disk using the helpful tf.keras.utils.image_dataset_from_directory utility
+
 train_ds = tf.keras.utils.image_dataset_from_directory(
     data_dir,
     validation_split=0.2,
@@ -29,7 +28,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     batch_size=batch_size
 )
 
-# Define the model architecture
+
 num_classes = len(train_ds.class_names)
 model = Sequential([
     layers.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
@@ -44,12 +43,10 @@ model = Sequential([
     layers.Dense(num_classes)
 ])
 
-# Compile the model
 model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-# Train the model
 epochs = 10
 history = model.fit(
     train_ds,
@@ -57,7 +54,6 @@ history = model.fit(
     epochs=epochs
 )
 
-# Save the model
 model.save("image_recognition_model")
 print("completed successfully")
 scores=model.evaluate(test)
